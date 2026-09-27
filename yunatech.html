@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YUNA Tech // Kaan Demir - 5th Grade Tech & Robotics Prodigy</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#030712',
+                            card: '#0b0f19',
+                            border: '#1e293b',
+                            cyan: '#06b6d4',
+                            purple: '#a855f7',
+                            emerald: '#10b981',
+                            neon: '#38bdf8'
+                        }
+                    },
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'Inter', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'neon-cyan': '0 0 25px rgba(6, 182, 212, 0.4)',
+                        'neon-purple': '0 0 25px rgba(168, 85, 247, 0.4)',
+                        'neon-emerald': '0 0 25px rgba(16, 185, 129, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030712;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        body[dir="rtl"] {
+            font-family: 'Cairo', sans-serif;
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .glass-panel {
+            background: rgba(11, 15, 25, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(30, 41, 59, 0.8);
+        }
+        .glass-panel-hover:hover {
+            border-color: rgba(6, 182, 212, 0.5);
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.15);
+        }
+        .cyber-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(30, 41, 59, 0.2) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(30, 41, 59, 0.2) 1px, transparent 1px);
+        }
+        .glow-text-cyan {
+            text-shadow: 0 0 15px rgba(6, 182, 212, 0.6);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #06b6d4;
+        }
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(1000%); }
+        }
+        .scanline {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.5), transparent);
+            animation: scanline 6s linear infinite;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-cyber-bg text-gray-100 cyber-grid relative" dir="ltr">
+
+    <canvas id="bg-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
+    <div class="scanline z-50"></div>
+
+    <header class="fixed top-0 left-0 right-0 z-40 glass-panel border-b border-cyber-border/60 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#hero" class="flex items-center space-x-3 group rtl:space-x-reverse">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyber-cyan to-cyber-purple p-0.5 flex items-center justify-center shadow-neon-cyan group-hover:scale-105 transition-transform">
+                    <div class="w-full h-full bg-cyber-bg rounded-[10px] flex items-center justify-center">
+                        <i data-lucide="cpu" class="w-5 h-5 text-cyber-cyan"></i>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-mono font-bold tracking-wider text-lg bg-gradient-to-r from-cyber-cyan via-cyber-neon to-cyber-purple bg-clip-text text-transparent">YUNA TECH</span>
+                    <span class="text-[10px] font-mono text-gray-400 tracking-widest uppercase" data-i18n="founder_badge">FOUNDER: KAAN (AGE 11)</span>
+                </div>
+            </a>
+            
+            <nav class="hidden lg:flex items-center space-x-6 rtl:space-x-reverse font-mono text-xs">
+                <a href="#about" class="text-gray-300 hover:text-cyber-cyan transition-colors flex items-center gap-1.5"><span class="text-cyber-cyan">01.</span> <span data-i18n="nav_bio">Bio</span></a>
+                <a href="#skills" class="text-gray-300 hover:text-cyber-cyan transition-colors flex items-center gap-1.5"><span class="text-cyber-cyan">02.</span> <span data-i18n="nav_skills">Skills</span></a>
+                <a href="#projects" class="text-gray-300 hover:text-cyber-cyan transition-colors flex items-center gap-1.5"><span class="text-cyber-cyan">03.</span> <span data-i18n="nav_projects">Projects</span></a>
+                <a href="#simulator" class="text-gray-300 hover:text-cyber-cyan transition-colors flex items-center gap-1.5"><span class="text-cyber-cyan">04.</span> <span data-i18n="nav_lab">Lab</span></a>
+                <a href="#gear" class="text-gray-300 hover:text-cyber-cyan transition-colors flex items-center gap-1.5"><span class="text-cyber-cyan">05.</span> <span data-i18n="nav_gear">Gear</span></a>
+                <a href="#timeline" class="text-gray-300 hover:text-cyber-cyan transition-colors flex items-center gap-1.5"><span class="text-cyber-cyan">06.</span> <span data-i18n="nav_timeline">Timeline</span></a>
+                <a href="#terminal" class="text-gray-300 hover:text-cyber-cyan transition-colors flex items-center gap-1.5"><span class="text-cyber-cyan">07.</span> <span data-i18n="nav_cli">CLI</span></a>
+            </nav>
+
+            <div class="flex items-center space-x-3 rtl:space-x-reverse">
+                <!-- Language Selector -->
+                <select id="lang-switcher" class="bg-cyber-card border border-cyber-border text-cyber-cyan font-mono text-xs rounded-lg px-2.5 py-1.5 outline-none cursor-pointer hover:border-cyber-cyan transition-colors">
+                    <option value="en">EN</option>
+                    <option value="tr">TR</option>
+                    <option value="de">DE</option>
+                    <option value="ar">AR</option>
+                </select>
+
+                <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg bg-cyber-card border border-cyber-border text-gray-300 hover:text-cyber-cyan">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden glass-panel border-t border-cyber-border px-6 py-4 space-y-3 font-mono text-sm">
+            <a href="#about" class="block text-gray-300 hover:text-cyber-cyan"><span class="text-cyber-cyan">01.</span> <span data-i18n="nav_bio">Bio</span></a>
+            <a href="#skills" class="block text-gray-300 hover:text-cyber-cyan"><span class="text-cyber-cyan">02.</span> <span data-i18n="nav_skills">Skills</span></a>
+            <a href="#projects" class="block text-gray-300 hover:text-cyber-cyan"><span class="text-cyber-cyan">03.</span> <span data-i18n="nav_projects">Projects</span></a>
+            <a href="#simulator" class="block text-gray-300 hover:text-cyber-cyan"><span class="text-cyber-cyan">04.</span> <span data-i18n="nav_lab">Lab</span></a>
+            <a href="#gear" class="block text-gray-300 hover:text-cyber-cyan"><span class="text-cyber-cyan">05.</span> <span data-i18n="nav_gear">Gear</span></a>
+            <a href="#timeline" class="block text-gray-300 hover:text-cyber-cyan"><span class="text-cyber-cyan">06.</span> <span data-i18n="nav_timeline">Timeline</span></a>
+            <a href="#terminal" class="block text-gray-300 hover:text-cyber-cyan"><span class="text-cyber-cyan">07.</span> <span data-i18n="nav_cli">CLI</span></a>
+        </div>
+    </header>
+
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 z-10">
+        <div class="max-w-5xl mx-auto text-center space-y-8">
+            <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass-panel border border-cyber-cyan/30 text-cyber-cyan font-mono text-xs sm:text-sm animate-pulse rtl:space-x-reverse">
+                <span class="w-2 h-2 rounded-full bg-cyber-emerald animate-ping"></span>
+                <span data-i18n="hero_badge">YUNA TECH // 5TH GRADE PRODIGY (AGE 11)</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight uppercase">
+                <span data-i18n="hero_title_1">Building Autonomous</span> <span class="bg-gradient-to-r from-cyber-cyan via-cyber-neon to-cyber-purple bg-clip-text text-transparent glow-text-cyan" data-i18n="hero_title_highlight">Robotics & AI</span> <span data-i18n="hero_title_2">at Age 11.</span>
+            </h1>
+
+            <div class="max-w-2xl mx-auto glass-panel p-4 rounded-xl border border-cyber-border font-mono text-left rtl:text-right shadow-lg">
+                <div class="flex items-center justify-between pb-2 mb-2 border-b border-cyber-border/60 text-xs text-gray-400">
+                    <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                        <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+                        <span class="ml-2 rtl:mr-2">yunatech@founder:~</span>
+                    </div>
+                    <span class="text-cyber-cyan">zsh // v5.0</span>
+                </div>
+                <p id="typing-terminal" class="text-sm sm:text-base text-cyber-cyan min-h-[48px]"></p>
+            </div>
+
+            <p class="max-w-xl mx-auto text-gray-400 text-base sm:text-lg" data-i18n="hero_desc">
+                Founder of YUNA Tech, 5th-grade student, junior robotics engineer, and software developer fusing hardware mechanics with intelligent code.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                <a href="#simulator" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-cyber-cyan to-blue-600 text-gray-950 font-bold font-mono tracking-wider hover:scale-105 transition-transform shadow-neon-cyan flex items-center justify-center space-x-3 rtl:space-x-reverse">
+                    <i data-lucide="cpu" class="w-5 h-5"></i>
+                    <span data-i18n="btn_lab">Explore Tech Lab</span>
+                </a>
+                <a href="#projects" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel border border-cyber-border hover:border-cyber-cyan text-gray-200 font-bold font-mono tracking-wider hover:scale-105 transition-all flex items-center justify-center space-x-3 rtl:space-x-reverse">
+                    <i data-lucide="folder-git-2" class="w-5 h-5 text-cyber-purple"></i>
+                    <span data-i18n="btn_projects">View Projects</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+        <div class="flex items-center space-x-4 rtl:space-x-reverse mb-12">
+            <span class="font-mono text-cyber-cyan text-lg">01.</span>
+            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight uppercase" data-i18n="about_title">Founder Profile & YUNA Tech</h2>
+            <div class="flex-1 h-px bg-cyber-border"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <!-- HUD Card -->
+            <div class="lg:col-span-5 glass-panel p-6 sm:p-8 rounded-2xl relative overflow-hidden group glass-panel-hover">
+                <div class="absolute -right-12 -top-12 w-48 h-48 bg-cyber-cyan/10 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="flex items-center space-x-4 rtl:space-x-reverse mb-6">
+                    <div class="relative">
+                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-cyber-cyan to-cyber-purple p-1 shadow-neon-cyan">
+                            <img src="https://placehold.co/160x160/0b0f19/06b6d4?text=YUNA" alt="Kaan Demir" class="w-full h-full object-cover rounded-xl">
+                        </div>
+                        <span class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-cyber-emerald border-2 border-cyber-bg animate-pulse"></span>
+                    </div>
+                    <div>
+                        <h3 class="font-mono font-bold text-xl text-white">Kaan Demir</h3>
+                        <p class="text-xs font-mono text-cyber-cyan" data-i18n="hud_role">Founder & CEO, YUNA Tech</p>
+                        <p class="text-[11px] font-mono text-gray-400 mt-1" data-i18n="hud_grade">GRADE: 5TH // AGE: 11</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 font-mono text-xs sm:text-sm text-gray-300 border-t border-cyber-border pt-4">
+                    <div class="flex justify-between">
+                        <span class="text-gray-400" data-i18n="hud_status">STATUS:</span>
+                        <span class="text-cyber-emerald font-semibold" data-i18n="hud_status_val">INNOVATING & STUDYING</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-400" data-i18n="hud_company">COMPANY:</span>
+                        <span class="text-cyber-cyan">YUNA Tech Inc.</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-400" data-i18n="hud_langs">FAV_LANG:</span>
+                        <span class="text-cyber-purple">Python, C++, Scratch</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-400" data-i18n="hud_motto">MOTTO:</span>
+                        <span class="text-gray-200" data-i18n="hud_motto_val">"Code the future today."</span>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-cyber-border flex items-center justify-between text-xs font-mono">
+                    <span class="text-gray-400">YUNA_SYS: v1.0</span>
+                    <a href="#terminal" class="text-cyber-cyan hover:underline flex items-center gap-1 rtl:flex-row-reverse"><span data-i18n="hud_verify">Verify ID</span> <i data-lucide="chevron-right" class="w-3 h-3 rtl:rotate-180"></i></a>
+                </div>
+            </div>
+
+            <!-- Bio Description -->
+            <div class="lg:col-span-7 space-y-6">
+                <div class="glass-panel p-6 sm:p-8 rounded-2xl border border-cyber-border">
+                    <h3 class="font-mono text-xl text-cyber-cyan mb-4 flex items-center gap-2 rtl:flex-row-reverse">
+                        <i data-lucide="terminal" class="w-5 h-5"></i>
+                        <span data-i18n="narrative_title">YUNA Tech Origin Story</span>
+                    </h3>
+                    <p class="text-gray-300 text-sm sm:text-base leading-relaxed mb-4" data-i18n="narrative_p1">
+                        At only 11 years old and in the 5th grade, I founded YUNA Tech to turn my fascination with electronics, robotics, and software into real-world innovations. What started as building simple LEGO robots evolved into programming microcontrollers and designing custom web applications.
+                    </p>
+                    <p class="text-gray-400 text-sm sm:text-base leading-relaxed" data-i18n="narrative_p2">
+                        Balancing 5th-grade science projects with advanced Python scripting and ROS robot simulations, I aim to inspire fellow students and prove that age is no barrier to building incredible technology.
+                    </p>
+                </div>
+
+                <!-- Passions Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="glass-panel p-4 rounded-xl border border-cyber-border text-center hover:border-cyber-cyan/50 transition-all">
+                        <div class="w-10 h-10 mx-auto mb-3 rounded-lg bg-cyber-cyan/10 flex items-center justify-center text-cyber-cyan">
+                            <i data-lucide="bot" class="w-5 h-5"></i>
+                        </div>
+                        <h4 class="font-mono font-bold text-sm text-gray-200" data-i18n="passion_1_title">Robotics & IoT</h4>
+                        <p class="text-xs text-gray-400 mt-1" data-i18n="passion_1_desc">Sensors & smart devices</p>
+                    </div>
+
+                    <div class="glass-panel p-4 rounded-xl border border-cyber-border text-center hover:border-cyber-purple/50 transition-all">
+                        <div class="w-10 h-10 mx-auto mb-3 rounded-lg bg-cyber-purple/10 flex items-center justify-center text-cyber-purple">
+                            <i data-lucide="code" class="w-5 h-5"></i>
+                        </div>
+                        <h4 class="font-mono font-bold text-sm text-gray-200" data-i18n="passion_2_title">Software & Apps</h4>
+                        <p class="text-xs text-gray-400 mt-1" data-i18n="passion_2_desc">Python & Web interfaces</p>
+                    </div>
+
+                    <div class="glass-panel p-4 rounded-xl border border-cyber-border text-center hover:border-cyber-emerald/50 transition-all">
+                        <div class="w-10 h-10 mx-auto mb-3 rounded-lg bg-cyber-emerald/10 flex items-center justify-center text-cyber-emerald">
+                            <i data-lucide="sparkles" class="w-5 h-5"></i>
+                        </div>
+                        <h4 class="font-mono font-bold text-sm text-gray-200" data-i18n="passion_3_title">YUNA Ventures</h4>
+                        <p class="text-xs text-gray-400 mt-1" data-i18n="passion_3_desc">Startup innovation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+        <div class="flex items-center space-x-4 rtl:space-x-reverse mb-12">
+            <span class="font-mono text-cyber-cyan text-lg">02.</span>
+            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight uppercase" data-i18n="skills_title">Skills & Expertise Matrix</h2>
+            <div class="flex-1 h-px bg-cyber-border"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Skill Card 1 -->
+            <div class="glass-panel p-6 rounded-2xl border border-cyber-border glass-panel-hover">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="font-mono text-sm text-cyber-cyan" data-i18n="skill_cat_1">PROGRAMMING</span>
+                    <i data-lucide="code" class="w-5 h-5 text-cyber-cyan"></i>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-xs font-mono mb-1">
+                            <span data-i18n="skill_py">Python & Algorithms</span>
+                            <span class="text-cyber-cyan">90%</span>
+                        </div>
+                        <div class="w-full h-2 bg-cyber-border rounded-full overflow-hidden">
+                            <div class="h-full bg-cyber-cyan rounded-full" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-mono mb-1">
+                            <span data-i18n="skill_html">HTML, CSS & Tailwind</span>
+                            <span class="text-cyber-cyan">85%</span>
+                        </div>
+                        <div class="w-full h-2 bg-cyber-border rounded-full overflow-hidden">
+                            <div class="h-full bg-cyber-cyan rounded-full" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-mono mb-1">
+                            <span>Block Coding & Scratch</span>
+                            <span class="text-cyber-cyan">98%</span>
+                        </div>
+                        <div class="w-full h-2 bg-cyber-border rounded-full overflow-hidden">
+                            <div class="h-full bg-cyber-cyan rounded-full" style="width: 98%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skill Card 2 -->
+            <div class="glass-panel p-6 rounded-2xl border border-cyber-border glass-panel-hover">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="font-mono text-sm text-cyber-purple" data-i18n="skill_cat_2">ROBOTICS & HARDWARE</span>
+                    <i data-lucide="cpu" class="w-5 h-5 text-cyber-purple"></i>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-xs font-mono mb-1">
+                            <span data-i18n="skill_arduino">Arduino & ESP32</span>
+                            <span class="text-cyber-purple">85%</span>
+                        </div>
+                        <div class="w-full h-2 bg-cyber-border rounded-full overflow-hidden">
+                            <div class="h-full bg-cyber-purple rounded-full" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-mono mb-1">
+                            <span data-i18n="skill_sensors">Sensors & Motors</span>
+                            <span class="text-cyber-purple">90%</span>
+                        </div>
+                        <div class="w-full h-2 bg-cyber-border rounded-full overflow-hidden">
+                            <div class="h-full bg-cyber-purple rounded-full" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-mono mb-1">
+                            <span data-i18n="skill_soldering">Circuit Assembly</span>
+                            <span class="text-cyber-purple">80%</span>
+                        </div>
+                        <div class="w-full h-2 bg-cyber-border rounded-full overflow-hidden">
+                            <div class="h-full bg-cyber-purple rounded-full" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skill Card 3 -->
+            <div class="glass-panel p-6 rounded-2xl border border-cyber-border glass-panel-hover">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="font-mono text-sm text-cyber-emerald" data-i18n="skill_cat_3">AI & INNOVATION</span>
+                    <i data-lucide="sparkles" class="w-5 h-5 text-cyber-emerald"></i>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-xs font-mono mb-1">
+                            <span data-i18n="skill_ai">Prompt Engineering & LLMs</span>
+                            <span class="text-cyber-emerald">92%</span>
+                        </div>
+                        <div class="w-full h-2 bg-cyber-border rounded-full overflow-hidden">
+                            <div class="h-full bg-cyber-emerald rounded-full" style="width: 92%;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-mono mb-1">
+                            <span data-i18n="skill_problem">Problem Solving & Logic</span>
+                            <span class="text-cyber-emerald">95%</span>
+                        </div>
+                        <div class="w-full h-2 bg-cyber-border rounded-full overflow-hidden">
+                            <div class="h-full bg-cyber-emerald rounded-full" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-mono mb-1">
+                            <span data-i18n="skill_pitch">Startup Pitching & Design</span>
+                            <span class="text-cyber-emerald">88%</span>
+                        </div>
+                        <div class="w-full h-2 bg-cyber-border rounded-full overflow-hidden">
+                            <div class="h-full bg-cyber-emerald rounded-full" style="width: 88%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Badges Bar -->
+        <div class="mt-8 glass-panel p-6 rounded-2xl border border-cyber-border flex flex-wrap items-center justify-center gap-4">
+            <span class="font-mono text-xs text-gray-400" data-i18n="stack_badges">YUNA TECH CERTIFIED STACK:</span>
+            <span class="px-3 py-1.5 rounded-lg bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan font-mono text-xs">Python 3.11</span>
+            <span class="px-3 py-1.5 rounded-lg bg-cyber-purple/10 border border-cyber-purple/30 text-cyber-purple font-mono text-xs">Arduino IDE</span>
+            <span class="px-3 py-1.5 rounded-lg bg-cyber-emerald/10 border border-cyber-emerald/30 text-cyber-emerald font-mono text-xs">YUNA OS v1</span>
+            <span class="px-3 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/30 text-blue-400 font-mono text-xs">Tailwind CSS</span>
+        </div>
+    </section>
+
+    <section id="projects" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+        <div class="flex items-center space-x-4 rtl:space-x-reverse mb-12">
+            <span class="font-mono text-cyber-cyan text-lg">03.</span>
+            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight uppercase" data-i18n="projects_title">YUNA Tech Project Showcase</h2>
+            <div class="flex-1 h-px bg-cyber-border"></div>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap items-center justify-center gap-3 mb-10 font-mono text-xs">
+            <button class="filter-btn px-4 py-2 rounded-xl bg-cyber-cyan text-gray-950 font-bold transition-all shadow-neon-cyan" data-filter="all" data-i18n="filter_all">ALL_PROJECTS</button>
+            <button class="filter-btn px-4 py-2 rounded-xl glass-panel border border-cyber-border text-gray-300 hover:text-cyber-cyan transition-all" data-filter="robotics" data-i18n="filter_robotics">ROBOTICS</button>
+            <button class="filter-btn px-4 py-2 rounded-xl glass-panel border border-cyber-border text-gray-300 hover:text-cyber-cyan transition-all" data-filter="software" data-i18n="filter_software">SOFTWARE</button>
+            <button class="filter-btn px-4 py-2 rounded-xl glass-panel border border-cyber-border text-gray-300 hover:text-cyber-cyan transition-all" data-filter="ai" data-i18n="filter_ai">AI_APPS</button>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Project 1 -->
+            <div class="project-card glass-panel rounded-2xl overflow-hidden border border-cyber-border glass-panel-hover flex flex-col" data-category="robotics">
+                <div class="relative h-48 bg-cyber-card overflow-hidden">
+                    <img src="https://placehold.co/600x400/0b0f19/06b6d4?text=YUNA+Rover" alt="YUNA Rover" class="w-full h-full object-cover">
+                    <div class="absolute top-3 right-3 rtl:right-auto rtl:left-3 px-3 py-1 rounded-full bg-cyber-bg/80 backdrop-blur border border-cyber-cyan/40 text-cyber-cyan font-mono text-[10px]">ROBOTICS</div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-mono font-bold text-lg text-white mb-2" data-i18n="proj_1_title">YUNA Autonomous Obstacle Rover</h3>
+                        <p class="text-gray-400 text-sm mb-4" data-i18n="proj_1_desc">Arduino-powered obstacle-avoiding rover built for school science fair by 11-year-old Kaan.</p>
+                        <div class="flex flex-wrap gap-2 mb-6 font-mono text-[11px]">
+                            <span class="px-2 py-1 rounded bg-cyber-cyan/10 text-cyber-cyan">Arduino</span>
+                            <span class="px-2 py-1 rounded bg-cyber-cyan/10 text-cyber-cyan">C++</span>
+                            <span class="px-2 py-1 rounded bg-cyber-cyan/10 text-cyber-cyan">Ultrasonic</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-cyber-border">
+                        <span class="text-xs font-mono text-cyber-emerald" data-i18n="proj_status_live">STATUS: OPERATIONAL</span>
+                        <button onclick="openModal('YUNA Autonomous Obstacle Rover', 'An Arduino-based robotic rover designed and coded entirely by 5th-grader Kaan Demir. Uses ultrasonic sensors to detect walls and navigate rooms automatically.', 'https://placehold.co/600x400/0b0f19/06b6d4?text=YUNA+Rover')" class="px-3 py-1.5 rounded-lg bg-cyber-cyan/10 border border-cyber-cyan/40 text-cyber-cyan font-mono text-xs hover:bg-cyber-cyan/20 transition-all" data-i18n="btn_details">
+                            Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card glass-panel rounded-2xl overflow-hidden border border-cyber-border glass-panel-hover flex flex-col" data-category="software">
+                <div class="relative h-48 bg-cyber-card overflow-hidden">
+                    <img src="https://placehold.co/600x400/0b0f19/a855f7?text=YUNA+Math+App" alt="YUNA Math App" class="w-full h-full object-cover">
+                    <div class="absolute top-3 right-3 rtl:right-auto rtl:left-3 px-3 py-1 rounded-full bg-cyber-bg/80 backdrop-blur border border-cyber-purple/40 text-cyber-purple font-mono text-[10px]">SOFTWARE</div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-mono font-bold text-lg text-white mb-2" data-i18n="proj_2_title">YUNA KidMath Web Game</h3>
+                        <p class="text-gray-400 text-sm mb-4" data-i18n="proj_2_desc">Interactive web application designed to help 5th-grade students practice fractions and algebra through gamification.</p>
+                        <div class="flex flex-wrap gap-2 mb-6 font-mono text-[11px]">
+                            <span class="px-2 py-1 rounded bg-cyber-purple/10 text-cyber-purple">JavaScript</span>
+                            <span class="px-2 py-1 rounded bg-cyber-purple/10 text-cyber-purple">Tailwind</span>
+                            <span class="px-2 py-1 rounded bg-cyber-purple/10 text-cyber-purple">HTML5</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-cyber-border">
+                        <span class="text-xs font-mono text-cyber-emerald" data-i18n="proj_status_live">STATUS: OPERATIONAL</span>
+                        <button onclick="openModal('YUNA KidMath Web Game', 'A web-based interactive math game built by Kaan to make fractions and math puzzles fun for elementary students.', 'https://placehold.co/600x400/0b0f19/a855f7?text=YUNA+Math+App')" class="px-3 py-1.5 rounded-lg bg-cyber-purple/10 border border-cyber-purple/40 text-cyber-purple font-mono text-xs hover:bg-cyber-purple/20 transition-all" data-i18n="btn_details">
+                            Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card glass-panel rounded-2xl overflow-hidden border border-cyber-border glass-panel-hover flex flex-col" data-category="ai">
+                <div class="relative h-48 bg-cyber-card overflow-hidden">
+                    <img src="https://placehold.co/600x400/0b0f19/10b981?text=YUNA+AI+Assistant" alt="YUNA AI Assistant" class="w-full h-full object-cover">
+                    <div class="absolute top-3 right-3 rtl:right-auto rtl:left-3 px-3 py-1 rounded-full bg-cyber-bg/80 backdrop-blur border border-cyber-emerald/40 text-cyber-emerald font-mono text-[10px]">AI_APPS</div>
+                </div>
+                <div class="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-mono font-bold text-lg text-white mb-2" data-i18n="proj_3_title">YUNA Homework AI Copilot</h3>
+                        <p class="text-gray-400 text-sm mb-4" data-i18n="proj_3_desc">Python-based smart study assistant that helps organize homework schedules and quiz questions for kids.</p>
+                        <div class="flex flex-wrap gap-2 mb-6 font-mono text-[11px]">
+                            <span class="px-2 py-1 rounded bg-cyber-emerald/10 text-cyber-emerald">Python</span>
+                            <span class="px-2 py-1 rounded bg-cyber-emerald/10 text-cyber-emerald">AI API</span>
+                            <span class="px-2 py-1 rounded bg-cyber-emerald/10 text-cyber-emerald">JSON</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-cyber-border">
+                        <span class="text-xs font-mono text-cyber-emerald" data-i18n="proj_status_live">STATUS: OPERATIONAL</span>
+                        <button onclick="openModal('YUNA Homework AI Copilot', 'Python script and interface created by Kaan to streamline study notes and generate practice science quizzes.', 'https://placehold.co/600x400/0b0f19/10b981?text=YUNA+AI+Assistant')" class="px-3 py-1.5 rounded-lg bg-cyber-emerald/10 border border-cyber-emerald/40 text-cyber-emerald font-mono text-xs hover:bg-cyber-emerald/20 transition-all" data-i18n="btn_details">
+                            Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="simulator" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+        <div class="flex items-center space-x-4 rtl:space-x-reverse mb-12">
+            <span class="font-mono text-cyber-cyan text-lg">04.</span>
+            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight uppercase" data-i18n="lab_title">YUNA Tech Robotics Lab & Simulator</h2>
+            <div class="flex-1 h-px bg-cyber-border"></div>
+        </div>
+
+        <div class="glass-panel p-6 sm:p-8 rounded-2xl border border-cyber-border relative overflow-hidden">
+            <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-6 pb-6 border-b border-cyber-border">
+                <div>
+                    <h3 class="font-mono text-xl font-bold text-white flex items-center gap-2 rtl:flex-row-reverse">
+                        <i data-lucide="cpu" class="text-cyber-cyan w-6 h-6"></i>
+                        <span data-i18n="lab_subtitle">Virtual Robot Arm & Kinematics Sandbox</span>
+                    </h3>
+                    <p class="text-gray-400 text-sm mt-1" data-i18n="lab_desc">Test joint angles in real-time. Built by 11-year-old Kaan to simulate YUNA Tech robotic arms.</p>
+                </div>
+                <div class="flex items-center space-x-3 rtl:space-x-reverse font-mono text-xs">
+                    <button id="sim-reset" class="px-4 py-2 rounded-xl bg-cyber-card border border-cyber-border hover:border-cyber-cyan text-gray-300 transition-all" data-i18n="sim_reset">Reset Simulation</button>
+                    <button id="sim-toggle" class="px-4 py-2 rounded-xl bg-cyber-cyan text-gray-950 font-bold hover:scale-105 transition-all shadow-neon-cyan" data-i18n="sim_toggle">Pause / Run</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Canvas Area -->
+                <div class="lg:col-span-8 bg-cyber-card rounded-xl border border-cyber-border p-4 relative flex items-center justify-center">
+                    <canvas id="robot-canvas" width="600" height="400" class="w-full h-auto max-h-[400px] rounded-lg bg-cyber-bg cursor-crosshair"></canvas>
+                    <div class="absolute top-6 left-6 rtl:left-auto rtl:right-6 font-mono text-[11px] text-cyber-cyan bg-cyber-bg/80 px-3 py-1 rounded border border-cyber-cyan/30" data-i18n="sim_status">
+                        YUNA_LAB: KINEMATICS ONLINE
+                    </div>
+                </div>
+
+                <!-- Controls Area -->
+                <div class="lg:col-span-4 space-y-6 font-mono text-sm">
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-xs mb-1 text-gray-300">
+                                <span id="theta1-label">Base Joint (θ1): 45°</span>
+                            </div>
+                            <input type="range" id="theta1-slider" min="0" max="180" value="45" class="w-full accent-cyber-cyan cursor-pointer">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1 text-gray-300">
+                                <span id="theta2-label">Elbow Joint (θ2): 60°</span>
+                            </div>
+                            <input type="range" id="theta2-slider" min="0" max="180" value="60" class="w-full accent-cyber-purple cursor-pointer">
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs mb-1 text-gray-300">
+                                <span id="theta3-label">Wrist Joint (θ3): 30°</span>
+                            </div>
+                            <input type="range" id="theta3-slider" min="0" max="180" value="30" class="w-full accent-cyber-emerald cursor-pointer">
+                        </div>
+                    </div>
+
+                    <div class="bg-cyber-bg p-4 rounded-xl border border-cyber-border space-y-2 text-xs text-gray-400">
+                        <div class="flex justify-between">
+                            <span data-i18n="ee_x">EFFECTOR X:</span>
+                            <span id="ee-x" class="text-cyber-cyan font-bold">--</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span data-i18n="ee_y">EFFECTOR Y:</span>
+                            <span id="ee-y" class="text-cyber-cyan font-bold">--</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span data-i18n="ee_mode">MODE:</span>
+                            <span class="text-cyber-emerald font-bold" data-i18n="ee_mode_val">YUNA ROBOTICS v1</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gear" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+        <div class="flex items-center space-x-4 rtl:space-x-reverse mb-12">
+            <span class="font-mono text-cyber-cyan text-lg">05.</span>
+            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight uppercase" data-i18n="gear_title">YUNA Tech Hardware & Workstation</h2>
+            <div class="flex-1 h-px bg-cyber-border"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="glass-panel p-6 rounded-2xl border border-cyber-border glass-panel-hover">
+                <div class="w-12 h-12 rounded-xl bg-cyber-cyan/10 flex items-center justify-center text-cyber-cyan mb-4">
+                    <i data-lucide="cpu" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-mono font-bold text-lg text-white mb-1" data-i18n="gear_1_title">Microcontrollers</h3>
+                <p class="text-xs font-mono text-cyber-cyan mb-3" data-i18n="gear_1_sub">YUNA RIG</p>
+                <p class="text-gray-400 text-sm" data-i18n="gear_1_desc">Arduino Uno, ESP32 Wi-Fi modules, and micro:bit boards for fast prototyping.</p>
+            </div>
+
+            <div class="glass-panel p-6 rounded-2xl border border-cyber-border glass-panel-hover">
+                <div class="w-12 h-12 rounded-xl bg-cyber-purple/10 flex items-center justify-center text-cyber-purple mb-4">
+                    <i data-lucide="terminal" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-mono font-bold text-lg text-white mb-1" data-i18n="gear_2_title">Development Desk</h3>
+                <p class="text-xs font-mono text-cyber-purple mb-3" data-i18n="gear_2_sub">SOFTWARE IDE</p>
+                <p class="text-gray-400 text-sm" data-i18n="gear_2_desc">VS Code with SynthWave theme, Python IDLE, and Arduino IDE.</p>
+            </div>
+
+            <div class="glass-panel p-6 rounded-2xl border border-cyber-border glass-panel-hover">
+                <div class="w-12 h-12 rounded-xl bg-cyber-emerald/10 flex items-center justify-center text-cyber-emerald mb-4">
+                    <i data-lucide="compass" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-mono font-bold text-lg text-white mb-1" data-i18n="gear_3_title">Sensors & Motors</h3>
+                <p class="text-xs font-mono text-cyber-emerald mb-3" data-i18n="gear_3_sub">ROBOTICS GEAR</p>
+                <p class="text-gray-400 text-sm" data-i18n="gear_3_desc">Ultrasonic distance sensors, servo motors, DC gear motors, and jumper wires.</p>
+            </div>
+
+            <div class="glass-panel p-6 rounded-2xl border border-cyber-border glass-panel-hover">
+                <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 mb-4">
+                    <i data-lucide="layers" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-mono font-bold text-lg text-white mb-1" data-i18n="gear_4_title">Startup HQ</h3>
+                <p class="text-xs font-mono text-blue-400 mb-3" data-i18n="gear_4_sub">YUNA ENTERPRISE</p>
+                <p class="text-gray-400 text-sm" data-i18n="gear_4_desc">Home robotics lab desk in Ankara, managing YUNA Tech remote projects.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="timeline" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+        <div class="flex items-center space-x-4 rtl:space-x-reverse mb-12">
+            <span class="font-mono text-cyber-cyan text-lg">06.</span>
+            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight uppercase" data-i18n="timeline_title">YUNA Tech Journey Timeline</h2>
+            <div class="flex-1 h-px bg-cyber-border"></div>
+        </div>
+
+        <div class="relative border-l-2 border-cyber-border ml-4 sm:ml-8 rtl:border-l-0 rtl:border-r-2 rtl:ml-0 rtl:mr-4 sm:rtl:mr-8 space-y-12">
+            <!-- Timeline Item 1 -->
+            <div class="relative pl-8 sm:pl-10 rtl:pl-0 rtl:pr-8 sm:rtl:pr-10 group">
+                <div class="absolute -left-[9px] rtl:left-auto rtl:-right-[9px] top-1.5 w-4 h-4 rounded-full bg-cyber-bg border-2 border-cyber-cyan group-hover:scale-125 transition-transform shadow-neon-cyan"></div>
+                <div class="glass-panel p-6 rounded-2xl border border-cyber-border">
+                    <span class="font-mono text-xs text-cyber-cyan font-bold" data-i18n="t_1_year">2026 - 5TH GRADE</span>
+                    <h3 class="font-mono font-bold text-xl text-white mt-1 mb-2" data-i18n="t_1_title">Founded YUNA Tech & Advanced Python</h3>
+                    <p class="text-gray-400 text-sm mb-4" data-i18n="t_1_desc">Officially launched YUNA Tech as an 11-year-old prodigy, building Python apps and autonomous robot rovers.</p>
+                    <div class="flex flex-wrap gap-2 font-mono text-xs">
+                        <span class="px-2.5 py-1 rounded-lg bg-cyber-cyan/10 text-cyber-cyan">YUNA Tech</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-cyber-cyan/10 text-cyber-cyan">Python</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline Item 2 -->
+            <div class="relative pl-8 sm:pl-10 rtl:pl-0 rtl:pr-8 sm:rtl:pr-10 group">
+                <div class="absolute -left-[9px] rtl:left-auto rtl:-right-[9px] top-1.5 w-4 h-4 rounded-full bg-cyber-bg border-2 border-cyber-purple group-hover:scale-125 transition-transform shadow-neon-purple"></div>
+                <div class="glass-panel p-6 rounded-2xl border border-cyber-border">
+                    <span class="font-mono text-xs text-cyber-purple font-bold" data-i18n="t_2_year">2025 - 4TH GRADE</span>
+                    <h3 class="font-mono font-bold text-xl text-white mt-1 mb-2" data-i18n="t_2_title">First Arduino Rover & Science Fair Award</h3>
+                    <p class="text-gray-400 text-sm mb-4" data-i18n="t_2_desc">Programmed an ultrasonic obstacle-avoiding robot with Arduino C++ and won school science fair recognition.</p>
+                    <div class="flex flex-wrap gap-2 font-mono text-xs">
+                        <span class="px-2.5 py-1 rounded-lg bg-cyber-purple/10 text-cyber-purple">Arduino</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-cyber-purple/10 text-cyber-purple">Hardware</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline Item 3 -->
+            <div class="relative pl-8 sm:pl-10 rtl:pl-0 rtl:pr-8 sm:rtl:pr-10 group">
+                <div class="absolute -left-[9px] rtl:left-auto rtl:-right-[9px] top-1.5 w-4 h-4 rounded-full bg-cyber-bg border-2 border-cyber-emerald group-hover:scale-125 transition-transform shadow-neon-emerald"></div>
+                <div class="glass-panel p-6 rounded-2xl border border-cyber-border">
+                    <span class="font-mono text-xs text-cyber-emerald font-bold" data-i18n="t_3_year">2023 - 2024</span>
+                    <h3 class="font-mono font-bold text-xl text-white mt-1 mb-2" data-i18n="t_3_title">Scratch & Early Logic Mastery</h3>
+                    <p class="text-gray-400 text-sm mb-4" data-i18n="t_3_desc">Started learning computational logic, block coding, and simple web development principles at age 9.</p>
+                    <div class="flex flex-wrap gap-2 font-mono text-xs">
+                        <span class="px-2.5 py-1 rounded-lg bg-cyber-emerald/10 text-cyber-emerald">Scratch</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-cyber-emerald/10 text-cyber-emerald">Logic</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="terminal" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+        <div class="flex items-center space-x-4 rtl:space-x-reverse mb-12">
+            <span class="font-mono text-cyber-cyan text-lg">07.</span>
+            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight uppercase" data-i18n="terminal_section_title">YUNA Tech CLI & Secure Contact</h2>
+            <div class="flex-1 h-px bg-cyber-border"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Terminal CLI -->
+            <div class="lg:col-span-7 glass-panel rounded-2xl border border-cyber-border overflow-hidden flex flex-col h-[450px]">
+                <div class="bg-cyber-card px-4 py-3 border-b border-cyber-border flex items-center justify-between text-xs font-mono text-gray-400">
+                    <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                        <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-500 inline-block"></span>
+                        <span class="ml-2 rtl:mr-2">yuna@cli:~</span>
+                    </div>
+                    <span class="text-cyber-cyan">yunatech // bash</span>
+                </div>
+                
+                <div id="terminal-output" class="flex-1 p-4 font-mono text-xs sm:text-sm overflow-y-auto space-y-2 text-gray-300 rtl:text-right">
+                    <p class="text-cyber-cyan">YUNA TECH OS v1.0 - Founder Kaan (Age 11)</p>
+                    <p class="text-gray-400">Type <span class="text-white">help</span> to view commands or try <span class="text-cyber-cyan">about</span>, <span class="text-cyber-cyan">company</span>, <span class="text-cyber-cyan">contact</span>, <span class="text-cyber-cyan">clear</span>.</p>
+                </div>
+
+                <div class="p-4 bg-cyber-card border-t border-cyber-border flex items-center space-x-2 rtl:space-x-reverse font-mono text-sm">
+                    <span class="text-cyber-cyan">yuna@cli:~$</span>
+                    <input type="text" id="terminal-input" placeholder="Type command here..." class="flex-1 bg-transparent border-none outline-none text-white font-mono text-sm rtl:text-right">
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="lg:col-span-5 glass-panel p-6 sm:p-8 rounded-2xl border border-cyber-border flex flex-col justify-between">
+                <div>
+                    <h3 class="font-mono text-xl font-bold text-white mb-2 flex items-center gap-2 rtl:flex-row-reverse">
+                        <i data-lucide="mail" class="text-cyber-cyan w-5 h-5"></i>
+                        <span data-i18n="contact_title">Message YUNA Tech</span>
+                    </h3>
+                    <p class="text-gray-400 text-sm mb-6" data-i18n="contact_desc">Send a direct transmission to 5th-grade founder Kaan.</p>
+                    
+                    <form id="contact-form" class="space-y-4 font-mono text-xs">
+                        <div>
+                            <label class="block text-gray-300 mb-1 rtl:text-right" data-i18n="form_name">SENDER_NAME:</label>
+                            <input type="text" id="sender-name" required placeholder="Elon Musk" class="w-full px-4 py-3 rounded-xl bg-cyber-bg border border-cyber-border text-white focus:border-cyber-cyan outline-none transition-colors rtl:text-right">
+                        </div>
+                        <div>
+                            <label class="block text-gray-300 mb-1 rtl:text-right" data-i18n="form_email">SENDER_EMAIL:</label>
+                            <input type="email" id="sender-email" required placeholder="elon@tesla.com" class="w-full px-4 py-3 rounded-xl bg-cyber-bg border border-cyber-border text-white focus:border-cyber-cyan outline-none transition-colors rtl:text-right">
+                        </div>
+                        <div>
+                            <label class="block text-gray-300 mb-1 rtl:text-right" data-i18n="form_msg">MESSAGE_PAYLOAD:</label>
+                            <textarea id="sender-msg" rows="3" required placeholder="Let's build robots together..." class="w-full px-4 py-3 rounded-xl bg-cyber-bg border border-cyber-border text-white focus:border-cyber-cyan outline-none transition-colors resize-none rtl:text-right"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyber-cyan to-cyber-purple text-gray-950 font-bold tracking-wider hover:scale-[1.02] transition-transform shadow-neon-cyan flex items-center justify-center space-x-2 rtl:space-x-reverse">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                            <span data-i18n="form_submit">Transmit Message</span>
+                        </button>
+                    </form>
+                </div>
+                
+                <div id="contact-success" class="hidden mt-4 p-4 rounded-xl bg-cyber-emerald/10 border border-cyber-emerald/30 text-cyber-emerald font-mono text-xs text-center animate-pulse" data-i18n="form_success">
+                    TRANSMISSION SUCCESSFUL // ACKNOWLEDGED BY YUNA TECH
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="project-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-cyber-bg/80 backdrop-blur-md p-4">
+        <div class="glass-panel max-w-lg w-full p-6 sm:p-8 rounded-2xl border border-cyber-cyan/50 relative shadow-neon-cyan rtl:text-right">
+            <button onclick="closeModal()" class="absolute top-4 right-4 rtl:right-auto rtl:left-4 text-gray-400 hover:text-white">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <img id="modal-img" src="" alt="Project Preview" class="w-full h-48 object-cover rounded-xl mb-4 border border-cyber-border">
+            <h3 id="modal-title" class="font-mono font-bold text-xl text-white mb-2"></h3>
+            <p id="modal-desc" class="text-gray-300 text-sm mb-6 leading-relaxed"></p>
+            <div class="flex justify-end">
+                <button onclick="closeModal()" class="px-6 py-2 rounded-xl bg-cyber-cyan text-gray-950 font-mono text-xs font-bold" data-i18n="modal_close">Close Stream</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-12 px-4 sm:px-6 lg:px-8 border-t border-cyber-border font-mono text-xs text-center text-gray-400 relative z-10">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p data-i18n="footer_rights">© 2026 YUNA TECH INC. FOUNDED BY KAAN (AGE 11). ALL SYSTEMS OPERATIONAL.</p>
+            <div class="flex items-center space-x-6 rtl:space-x-reverse">
+                <a href="#hero" class="hover:text-cyber-cyan transition-colors" data-i18n="footer_top">Back to Top</a>
+                <a href="#terminal" class="hover:text-cyber-cyan transition-colors" data-i18n="footer_cli">CLI Terminal</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Multi-language Dictionary
+        const translations = {
+            en: {
+                founder_badge: "FOUNDER: KAAN (AGE 11)",
+                nav_bio: "Bio",
+                nav_skills: "Skills",
+                nav_projects: "Projects",
+                nav_lab: "Lab",
+                nav_gear: "Gear",
+                nav_timeline: "Timeline",
+                nav_cli: "CLI",
+                hero_badge: "YUNA TECH // 5TH GRADE PRODIGY (AGE 11)",
+                hero_title_1: "Building Autonomous",
+                hero_title_highlight: "Robotics & AI",
+                hero_title_2: "at Age 11.",
+                hero_desc: "Founder of YUNA Tech, 5th-grade student, junior robotics engineer, and software developer fusing hardware mechanics with intelligent code.",
+                btn_lab: "Explore Tech Lab",
+                btn_projects: "View Projects",
+                about_title: "Founder Profile & YUNA Tech",
+                hud_role: "Founder & CEO, YUNA Tech",
+                hud_grade: "GRADE: 5TH // AGE: 11",
+                hud_status: "STATUS:",
+                hud_status_val: "INNOVATING & STUDYING",
+                hud_company: "COMPANY:",
+                hud_langs: "FAV_LANG:",
+                hud_motto: "MOTTO:",
+                hud_motto_val: "\"Code the future today.\"",
+                hud_verify: "Verify ID",
+                narrative_title: "YUNA Tech Origin Story",
+                narrative_p1: "At only 11 years old and in the 5th grade, I founded YUNA Tech to turn my fascination with electronics, robotics, and software into real-world innovations. What started as building simple LEGO robots evolved into programming microcontrollers and designing custom web applications.",
+                narrative_p2: "Balancing 5th-grade science projects with advanced Python scripting and ROS robot simulations, I aim to inspire fellow students and prove that age is no barrier to building incredible technology.",
+                passion_1_title: "Robotics & IoT",
+                passion_1_desc: "Sensors & smart devices",
+                passion_2_title: "Software & Apps",
+                passion_2_desc: "Python & Web interfaces",
+                passion_3_title: "YUNA Ventures",
+                passion_3_desc: "Startup innovation",
+                skills_title: "Skills & Expertise Matrix",
+                skill_cat_1: "PROGRAMMING",
+                skill_py: "Python & Algorithms",
+                skill_html: "HTML, CSS & Tailwind",
+                skill_cat_2: "ROBOTICS & HARDWARE",
+                skill_arduino: "Arduino & ESP32",
+                skill_sensors: "Sensors & Motors",
+                skill_soldering: "Circuit Assembly",
+                skill_cat_3: "AI & INNOVATION",
+                skill_ai: "Prompt Engineering & LLMs",
+                skill_problem: "Problem Solving & Logic",
+                skill_pitch: "Startup Pitching & Design",
+                stack_badges: "YUNA TECH CERTIFIED STACK:",
+                projects_title: "YUNA Tech Project Showcase",
+                filter_all: "ALL_PROJECTS",
+                filter_robotics: "ROBOTICS",
+                filter_software: "SOFTWARE",
+                filter_ai: "AI_APPS",
+                proj_1_title: "YUNA Autonomous Obstacle Rover",
+                proj_1_desc: "Arduino-powered obstacle-avoiding rover built for school science fair by 11-year-old Kaan.",
+                proj_2_title: "YUNA KidMath Web Game",
+                proj_2_desc: "Interactive web application designed to help 5th-grade students practice fractions and algebra through gamification.",
+                proj_3_title: "YUNA Homework AI Copilot",
+                proj_3_desc: "Python-based smart study assistant that helps organize homework schedules and quiz questions for kids.",
+                proj_status_live: "STATUS: OPERATIONAL",
+                btn_details: "Details",
+                lab_title: "YUNA Tech Robotics Lab & Simulator",
+                lab_subtitle: "Virtual Robot Arm & Kinematics Sandbox",
+                lab_desc: "Test joint angles in real-time. Built by 11-year-old Kaan to simulate YUNA Tech robotic arms.",
+                sim_reset: "Reset Simulation",
+                sim_toggle: "Pause / Run",
+                sim_status: "YUNA_LAB: KINEMATICS ONLINE",
+                ee_x: "EFFECTOR X:",
+                ee_y: "EFFECTOR Y:",
+                ee_mode: "MODE:",
+                ee_mode_val: "YUNA ROBOTICS v1",
+                gear_title: "YUNA Tech Hardware & Workstation",
+                gear_1_title: "Microcontrollers",
+                gear_1_sub: "YUNA RIG",
+                gear_1_desc: "Arduino Uno, ESP32 Wi-Fi modules, and micro:bit boards for fast prototyping.",
+                gear_2_title: "Development Desk",
+                gear_2_sub: "SOFTWARE IDE",
+                gear_2_desc: "VS Code with SynthWave theme, Python IDLE, and Arduino IDE.",
+                gear_3_title: "Sensors & Motors",
+                gear_3_sub: "ROBOTICS GEAR",
+                gear_3_desc: "Ultrasonic distance sensors, servo motors, DC gear motors, and jumper wires.",
+                gear_4_title: "Startup HQ",
+                gear_4_sub: "YUNA ENTERPRISE",
+                gear_4_desc: "Home robotics lab desk in Ankara, managing YUNA Tech remote projects.",
+                timeline_title: "YUNA Tech Journey Timeline",
+                t_1_year: "2026 - 5TH GRADE",
+                t_1_title: "Founded YUNA Tech & Advanced Python",
+                t_1_desc: "Officially launched YUNA Tech as an 11-year-old prodigy, building Python apps and autonomous robot rovers.",
+                t_2_year: "2025 - 4TH GRADE",
+                t_2_title: "First Arduino Rover & Science Fair Award",
+                t_2_desc: "Programmed an ultrasonic obstacle-avoiding robot with Arduino C++ and won school science fair recognition.",
+                t_3_year: "2023 - 2024",
+                t_3_title: "Scratch & Early Logic Mastery",
+                t_3_desc: "Started learning computational logic, block coding, and simple web development principles at age 9.",
+                terminal_section_title: "YUNA Tech CLI & Secure Contact",
+                contact_title: "Message YUNA Tech",
+                contact_desc: "Send a direct transmission to 5th-grade founder Kaan.",
+                form_name: "SENDER_NAME:",
+                form_email: "SENDER_EMAIL:",
+                form_msg: "MESSAGE_PAYLOAD:",
+                form_submit: "Transmit Message",
+                form_success: "TRANSMISSION SUCCESSFUL // ACKNOWLEDGED BY YUNA TECH",
+                modal_close: "Close Stream",
+                footer_rights: "© 2026 YUNA TECH INC. FOUNDED BY KAAN (AGE 11). ALL SYSTEMS OPERATIONAL.",
+                footer_top: "Back to Top",
+                footer_cli: "CLI Terminal"
+            },
+            tr: {
+                founder_badge: "KURUCU: KAAN (11 YAŞINDA)",
+                nav_bio: "Biyografi",
+                nav_skills: "Yetenekler",
+                nav_projects: "Projeler",
+                nav_lab: "Laboratuvar",
+                nav_gear: "Donanım",
+                nav_timeline: "Zaman Çizelgesi",
+                nav_cli: "CLI",
+                hero_badge: "YUNA TECH // 5. SINIF DAHİ (11 YAŞINDA)",
+                hero_title_1: "11 Yaşında",
+                hero_title_highlight: "Otonom Robotik & Yapay Zeka",
+                hero_title_2: "Geliştiriyorum.",
+                hero_desc: "YUNA Tech'in kurucusu, 5. sınıf öğrencisi, genç robotik mühendisi ve donanım ile akıllı kodu birleştiren yazılımcı.",
+                btn_lab: "Teknoloji Laboratuvarı",
+                btn_projects: "Projeleri İncele",
+                about_title: "Kurucu Profili ve YUNA Tech",
+                hud_role: "Kurucu ve CEO, YUNA Tech",
+                hud_grade: "SINIF: 5. SINIF // YAŞ: 11",
+                hud_status: "DURUM:",
+                hud_status_val: "GELİŞTİRİYOR VE ÇALIŞIYOR",
+                hud_company: "ŞİRKET:",
+                hud_langs: "FAV_DİL:",
+                hud_motto: "SLOGAN:",
+                hud_motto_val: "\"Geleceğin kodunu bugün yaz.\"",
+                hud_verify: "Kimliği Doğrula",
+                narrative_title: "YUNA Tech'in Kuruluş Hikayesi",
+                narrative_p1: "Henüz 11 yaşında ve 5. sınıftayken, elektronik, robotik ve yazılıma olan tutkumu gerçek dünya inovasyonlarına dönüştürmek için YUNA Tech'i kurdum. Basit LEGO robotlar inşa ederek başladığım yolculuk, mikrodenetleyicileri programlamaya ve özel web uygulamaları tasarlamaya evrildi.",
+                narrative_p2: "5. sınıf fen projelerini ileri düzey Python betikleri ve robot simülasyonlarıyla dengelerken, yaşıtlarıma ilham vermeyi ve harika teknolojiler inşa etmede yaşın engel olmadığını kanıtlamayı amaçlıyorum.",
+                passion_1_title: "Robotik ve IoT",
+                passion_1_desc: "Sensörler ve akıllı cihazlar",
+                passion_2_title: "Yazılım ve Uygulamalar",
+                passion_2_desc: "Python ve web arayüzleri",
+                passion_3_title: "YUNA Girişimleri",
+                passion_3_desc: "Girişimcilik inovasyonu",
+                skills_title: "Yetenekler ve Uzmanlık Matrisi",
+                skill_cat_1: "PROGRAMLAMA",
+                skill_py: "Python ve Algoritmalar",
+                skill_html: "HTML, CSS ve Tailwind",
+                skill_cat_2: "ROBOTİK VE DONANIM",
+                skill_arduino: "Arduino ve ESP32",
+                skill_sensors: "Sensörler ve Motorlar",
+                skill_soldering: "Devre Montajı",
+                skill_cat_3: "YAPAY ZEKA VE İNOVASYON",
+                skill_ai: "Komut Mühendisliği ve LLM'ler",
+                skill_problem: "Problem Çözme ve Mantık",
+                skill_pitch: "Girişim Sunumu ve Tasarım",
+                stack_badges: "YUNA TECH ONAYLI YAPI:",
+                projects_title: "YUNA Tech Proje Vitrini",
+                filter_all: "TÜM_PROJELER",
+                filter_robotics: "ROBOTİK",
+                filter_software: "YAZILIM",
+                filter_ai: "YAPAY_ZEKA",
+                proj_1_title: "YUNA Otonom Engel Kaçınma Rover'ı",
+                proj_1_desc: "11 yaşındaki Kaan tarafından okul bilim fuarı için Arduino ile geliştirilen engelden kaçınan robot.",
+                proj_2_title: "YUNA KidMath Web Oyunu",
+                proj_2_desc: "5. sınıf öğrencilerinin kesirler ve cebir pratik yapması için tasarlanmış interaktif web uygulaması.",
+                proj_3_title: "YUNA Ödev Yapay Zeka Asistanı",
+                proj_3_desc: "Çocukların ödev programlarını ve fen testi sorularını organize etmesine yardımcı olan akıllı Python tabanlı yardımcı.",
+                proj_status_live: "DURUM: ÇALIŞIR DURUMDA",
+                btn_details: "Detaylar",
+                lab_title: "YUNA Tech Robotik Laboratuvarı ve Simülatör",
+                lab_subtitle: "Sanal Robot Kolu ve Kinematik Sandbox",
+                lab_desc: "Eklem açılarını gerçek zamanlı test edin. YUNA Tech robot kollarını simüle etmek için 11 yaşındaki Kaan tarafından yapıldı.",
+                sim_reset: "Simülasyonu Sıfırla",
+                sim_toggle: "Durdur / Çalıştır",
+                sim_status: "YUNA_LAB: KİNEMATİK AKTİF",
+                ee_x: "UÇ_NOKTA X:",
+                ee_y: "UÇ_NOKTA Y:",
+                ee_mode: "MOD:",
+                ee_mode_val: "YUNA ROBOTICS v1",
+                gear_title: "YUNA Tech Donanım ve Çalışma Masası",
+                gear_1_title: "Mikrodenetleyiciler",
+                gear_1_sub: "YUNA DONANIM",
+                gear_1_desc: "Arduino Uno, ESP32 Wi-Fi modülleri ve hızlı prototipleme için micro:bit kartları.",
+                gear_2_title: "Geliştirme Masası",
+                gear_2_sub: "YAZILIM IDE",
+                gear_2_desc: "SynthWave temalı VS Code, Python IDLE ve Arduino IDE.",
+                gear_3_title: "Sensörler ve Motorlar",
+                gear_3_sub: "ROBOTİK GEREÇ",
+                gear_3_desc: "Ultrasonik mesafe sensörleri, servo motorlar, DC redüktörlü motorlar.",
+                gear_4_title: "Girişim Merkezi",
+                gear_4_sub: "YUNA KURUMSAL",
+                gear_4_desc: "Ankara'daki ev robotik laboratuvarı masası, YUNA Tech projelerini yönetiyor.",
+                timeline_title: "YUNA Tech Yolculuk Zaman Çizelgesi",
+                t_1_year: "2026 - 5. SINIF",
+                t_1_title: "YUNA Tech'in Kurulması ve İleri Python",
+                t_1_desc: "11 yaşında bir dahi olarak YUNA Tech'i resmen kurdu, Python uygulamaları ve otonom robotlar geliştirdi.",
+                t_2_year: "2025 - 4. SINIF",
+                t_2_title: "İlk Arduino Rover'ı ve Bilim Fuarı Ödülü",
+                t_2_desc: "Arduino C++ ile ultrasonik engelden kaçınan robot programladı ve okul bilim fuarında ödül aldı.",
+                t_3_year: "2023 - 2024",
+                t_3_title: "Scratch ve Erken Mantık Ustalığı",
+                t_3_desc: "9 yaşında bilişim mantığı, blok kodlama ve temel web geliştirme ilkelerini öğrenmeye başladı.",
+                terminal_section_title: "YUNA Tech CLI ve Güvenli İletişim",
+                contact_title: "YUNA Tech'e Mesaj Gönder",
+                contact_desc: "5. sınıf kurucu Kaan'a doğrudan mesaj gönderin.",
+                form_name: "GÖNDEREN_ADI:",
+                form_email: "GÖNDEREN_EPOSTA:",
+                form_msg: "MESAJ_İÇERİĞİ:",
+                form_submit: "Mesajı İlet",
+                form_success: "İLETİM BAŞARILI // YUNA TECH TARAFINDAN ONAYLANDI",
+                modal_close: "Akışı Kapat",
+                footer_rights: "© 2026 YUNA TECH INC. KAAN TARAFINDAN KURULDU (11 YAŞINDA). TÜM SİSTEMLER ÇALIŞIYOR.",
+                footer_top: "Başa Dön",
+                footer_cli: "CLI Terminali"
+            },
+            de: {
+                founder_badge: "GRÜNDER: KAAN (ALTER 11)",
+                nav_bio: "Bio",
+                nav_skills: "Fähigkeiten",
+                nav_projects: "Projekte",
+                nav_lab: "Labor",
+                nav_gear: "Ausrüstung",
+                nav_timeline: "Zeitlinie",
+                nav_cli: "CLI",
+                hero_badge: "YUNA TECH // 5. KLASSE WUNDERKIND (ALTER 11)",
+                hero_title_1: "Autonome Robotik",
+                hero_title_highlight: "& KI mit 11 Jahren",
+                hero_title_2: "entwickeln.",
+                hero_desc: "Gründer von YUNA Tech, Fünftklässler, Nachwuchs-Robotikingenieur und Softwareentwickler, der Hardware mit klarem Code verbindet.",
+                btn_lab: "Tech-Lab Erkunden",
+                btn_projects: "Projekte Ansehen",
+                about_title: "Gründerprofil & YUNA Tech",
+                hud_role: "Gründer & CEO, YUNA Tech",
+                hud_grade: "KLASSE: 5 // ALTER: 11",
+                hud_status: "STATUS:",
+                hud_status_val: "INNOVIERT & LERNT",
+                hud_company: "UNTERNEHMEN:",
+                hud_langs: "FAV_SPRACHE:",
+                hud_motto: "MOTTO:",
+                hud_motto_val: "\"Codiere die Zukunft heute.\"",
+                hud_verify: "ID Verifizieren",
+                narrative_title: "YUNA Tech Entstehungsgeschichte",
+                narrative_p1: "Mit nur 11 Jahren und in der 5. Klasse gründete ich YUNA Tech, um meine Begeisterung für Elektronik, Robotik und Software in reale Innovationen umzusetzen. Was mit dem Bau einfacher LEGO-Roboter begann, entwickelte sich zur Programmierung von Mikrocontrollern und Web-Apps.",
+                narrative_p2: "Ich verbinde naturwissenschaftliche Schulprojekte mit fortgeschrittenen Python-Skripten und Roboter-Simulationen, um andere Schüler zu inspirieren und zu zeigen, dass Alter kein Hindernis für großartige Technik ist.",
+                passion_1_title: "Robotik & IoT",
+                passion_1_desc: "Sensoren & Smart Devices",
+                passion_2_title: "Software & Apps",
+                passion_2_desc: "Python & Web-Interfaces",
+                passion_3_title: "YUNA Ventures",
+                passion_3_desc: "Startup-Innovation",
+                skills_title: "Fähigkeiten & Experten-Matrix",
+                skill_cat_1: "PROGRAMMIERUNG",
+                skill_py: "Python & Algorithmen",
+                skill_html: "HTML, CSS & Tailwind",
+                skill_cat_2: "ROBOTIK & HARDWARE",
+                skill_arduino: "Arduino & ESP32",
+                skill_sensors: "Sensoren & Motoren",
+                skill_soldering: "Schaltkreis-Montage",
+                skill_cat_3: "KI & INNOVATION",
+                skill_ai: "Prompt Engineering & LLMs",
+                skill_problem: "Problemlösung & Logik",
+                skill_pitch: "Startup Pitching & Design",
+                stack_badges: "YUNA TECH ZERTIFIZIERTER STACK:",
+                projects_title: "YUNA Tech Projekt-Showcase",
+                filter_all: "ALLE_PROJEKTE",
+                filter_robotics: "ROBOTIK",
+                filter_software: "SOFTWARE",
+                filter_ai: "KI_APPS",
+                proj_1_title: "YUNA Autonomer Hindernis-Rover",
+                proj_1_desc: "Ein Arduino-basierter Rover mit Hindernisausweichung, gebaut vom 11-jährigen Kaan für die Schulmesse.",
+                proj_2_title: "YUNA KidMath Web-Spiel",
+                proj_2_desc: "Interaktive Web-App für Fünftklässler zum spielerischen Üben von Brüchen und Algebra.",
+                proj_3_title: "YUNA Hausaufgaben KI-Copilot",
+                proj_3_desc: "Python-basierter Lernassistent zur Organisation von Hausaufgaben und Quizfragen.",
+                proj_status_live: "STATUS: EINSATZBEREIT",
+                btn_details: "Details",
+                lab_title: "YUNA Tech Robotik-Labor & Simulator",
+                lab_subtitle: "Virtueller Roboterarm & Kinematik Sandbox",
+                lab_desc: "Gelenkwinkel in Echtzeit testen. Entwickelt vom 11-jährigen Kaan zur Simulation von YUNA Tech Roboterarmen.",
+                sim_reset: "Simulation Zurücksetzen",
+                sim_toggle: "Pause / Start",
+                sim_status: "YUNA_LAB: KINEMATIK ONLINE",
+                ee_x: "EFFEKTOR X:",
+                ee_y: "EFFEKTOR Y:",
+                ee_mode: "MODUS:",
+                ee_mode_val: "YUNA ROBOTICS v1",
+                gear_title: "YUNA Tech Hardware & Arbeitsplatz",
+                gear_1_title: "Mikrocontroller",
+                gear_1_sub: "YUNA RIG",
+                gear_1_desc: "Arduino Uno, ESP32 WLAN-Module und micro:bit Boards für Prototypen.",
+                gear_2_title: "Entwicklungs-Desk",
+                gear_2_sub: "SOFTWARE IDE",
+                gear_2_desc: "VS Code mit SynthWave Theme, Python IDLE und Arduino IDE.",
+                gear_3_title: "Sensoren & Motoren",
+                gear_3_sub: "ROBOTIK AUSRÜSTUNG",
+                gear_3_desc: "Ultraschall-Distanzsensoren, Servomotoren und Gleichstrommotoren.",
+                gear_4_title: "Startup HQ",
+                gear_4_sub: "YUNA ENTERPRISE",
+                gear_4_desc: "Heim-Robotik-Labor in Ankara zur Steuerung von YUNA Tech Projekten.",
+                timeline_title: "YUNA Tech Meilenstein-Zeitlinie",
+                t_1_year: "2026 - 5. KLASSE",
+                t_1_title: "Gründung von YUNA Tech & Advanced Python",
+                t_1_desc: "Offizieller Start von YUNA Tech als 11-jähriges Wunderkind mit Python-Apps und autonomen Rovern.",
+                t_2_year: "2025 - 4. KLASSE",
+                t_2_title: "Erster Arduino-Rover & Wissenschaftspreis",
+                t_2_desc: "Programmierung eines Ultraschall-Rover mit Arduino C++ und Auszeichnung auf der Schulmesse.",
+                t_3_year: "2023 - 2024",
+                t_3_title: "Scratch & Frühe Logik-Beherrschung",
+                t_3_desc: "Einstieg in Informatiklogik, Blockprogrammierung und Webentwicklung mit 9 Jahren.",
+                terminal_section_title: "YUNA Tech CLI & Sichere Nachricht",
+                contact_title: "YUNA Tech Kontaktieren",
+                contact_desc: "Senden Sie eine direkte Nachricht an den Fünftklässler-Gründer Kaan.",
+                form_name: "ABSENDER_NAME:",
+                form_email: "ABSENDER_E-MAIL:",
+                form_msg: "NACHRICHTEN_PAYLOAD:",
+                form_submit: "Nachricht Senden",
+                form_success: "ÜBERTRAGUNG ERFOLGREICH // VON YUNA TECH BESTÄTIGT",
+                modal_close: "Stream Schließen",
+                footer_rights: "© 2026 YUNA TECH INC. GEGRÜNDET VON KAAN (ALTER 11). ALLE SYSTEME BEREIT.",
+                footer_top: "Nach Oben",
+                footer_cli: "CLI Terminal"
+            },
+            ar: {
+                founder_badge: "المؤسس: كآن (11 عاماً)",
+                nav_bio: "السيرة",
+                nav_skills: "المهارات",
+                nav_projects: "المشاريع",
+                nav_lab: "المختبر",
+                nav_gear: "العتاد",
+                nav_timeline: "الخط الزمني",
+                nav_cli: "طرفية الأوامر",
+                hero_badge: "يونا تك // عبقري الصف الخامس (11 عاماً)",
+                hero_title_1: "بناء روبوتات وذكاء اصطناعي",
+                hero_title_highlight: "مستقلة",
+                hero_title_2: "في سن 11.",
+                hero_desc: "مؤسس شركة يونا تك، طالب في الصف الخامس، مهندس روبوتات ناشئ ومطور برمجيات يدمج بين الميكانيكا والبرمجة الذكية.",
+                btn_lab: "استكشاف مختبر التقنية",
+                btn_projects: "عرض المشاريع",
+                about_title: "ملف المؤسس وشركة يونا تك",
+                hud_role: "المؤسس والرئيس التنفيذي، يونا تك",
+                hud_grade: "الصف: الخامس // العمر: 11",
+                hud_status: "الحالة:",
+                hud_status_val: "ابتكار ودراسة مستمرة",
+                hud_company: "الشركة:",
+                hud_langs: "لغات البرمجة:",
+                hud_motto: "الشعار:",
+                hud_motto_val: "\"برمج المستقبل اليوم.\"",
+                hud_verify: "التحقق من الهوية",
+                narrative_title: "قصة تأسيس يونا تك",
+                narrative_p1: "في عمر 11 عاماً وفي الصف الخامس، أسست شركة يونا تك لتحويل شغفي بالإلكترونيات والروبوتات والبرمجيات إلى ابتكارات واقعية. ما بدأ ببناء روبوتات ليغو بسيطة تطور إلى برمجة المتحكمات الدقيقة وتصميم تطبيقات الويب.",
+                narrative_p2: "من خلال الموازنة بين مشاريع العلوم في الصف الخامس وسكريبتات بايثون المتقدمة ومحاكاة الروبوتات، أهدف إلى إلهام زملائي الطلاب وإثبات أن العمر ليس عائقاً أمام بناء تقنيات مذهلة.",
+                passion_1_title: "الروبوتات وإنترنت الأشياء",
+                passion_1_desc: "المستشعرات والأجهزة الذكية",
+                passion_2_title: "البرمجيات والتطبيقات",
+                passion_2_desc: "بايثون واجهات الويب",
+                passion_3_title: "مشاريع يونا",
+                passion_3_desc: "ابتكار الشركات الناشئة",
+                skills_title: "مصفوفة المهارات والخبرات",
+                skill_cat_1: "البرمجة",
+                skill_py: "بايثون والخوارزميات",
+                skill_html: "HTML, CSS & Tailwind",
+                skill_cat_2: "الروبوتات والعتاد",
+                skill_arduino: "Arduino & ESP32",
+                skill_sensors: "المستشعرات والمحركات",
+                skill_soldering: "تجميع الدوائر",
+                skill_cat_3: "الذكاء الاصطناعي والابتكار",
+                skill_ai: "هندسة الأوامر والنماذج اللغوية",
+                skill_problem: "حل المشكلات والمنطق",
+                skill_pitch: "عرض المشاريع والتصميم",
+                stack_badges: "التقنيات معتمدة من يونا تك:",
+                projects_title: "معرض مشاريع يونا تك",
+                filter_all: "جميع_المشاريع",
+                filter_robotics: "الروبوتات",
+                filter_software: "البرمجيات",
+                filter_ai: "تطبيقات_الذكاء",
+                proj_1_title: "روبوت يونا لتفادي العوائق",
+                proj_1_desc: "روبوت متحرك يعتمد على الأردوينو لتفادي العوائق، صممه كآن البالغ من العمر 11 عاماً لمعرض العلوم.",
+                proj_2_title: "لعبة يونا الرياضية التعليمية",
+                proj_2_desc: "تطبيق ويب تفاعلي مصمم لمساعدة طلاب الصف الخامس على ممارسة الكسور والجبر بطريقة ممتعة.",
+                proj_3_title: "مساعد يونا الذكي للواجبات",
+                proj_3_desc: "مساعد دراسي ذكي مبني بلغة بايثون للمساعدة في تنظيم جداول الواجبات وأسئلة الاختبارات.",
+                proj_status_live: "الحالة: قيد التشغيل",
+                btn_details: "التفاصيل",
+                lab_title: "مختبر روبوتات يونا تك والمحاكي",
+                lab_subtitle: "ذراع روبوت افتراضي ومنصة محاكاة الحركية",
+                lab_desc: "اختبر زوايا المفاصل في الوقت الفعلي. تم تطويره بواسطة كآن لمحاكاة أذرع روبوتات يونا تك.",
+                sim_reset: "إعادة ضبط المحاكاة",
+                sim_toggle: "إيقاف / تشغيل",
+                sim_status: "مختبر يونا: الحركية متصلة",
+                ee_x: "إحداثي المؤثر X:",
+                ee_y: "إحداثي المؤثر Y:",
+                ee_mode: "الوضع:",
+                ee_mode_val: "يونا روبوتيكس v1",
+                gear_title: "عتاد يونا تك ومكتب العمل",
+                gear_1_title: "المتحكمات الدقيقة",
+                gear_1_sub: "منصة يونا",
+                gear_1_desc: "لوحات Arduino Uno ووحدات ESP32 للاتصال اللاسلكي والنماذج الأولية السريعة.",
+                gear_2_title: "مكتب التطوير",
+                gear_2_sub: "بيئة البرمجة",
+                gear_2_desc: "محرر VS Code مع ثيم SynthWave وبيئة بايثون وأردوينو.",
+                gear_3_title: "المستشعرات والمحركات",
+                gear_3_sub: "عتاد الروبوتات",
+                gear_3_desc: "مستشعرات المسافة بالموجات فوق الصوتية، محركات سيرفو، ومحركات تيار مستمر.",
+                gear_4_title: "مقر الشركة الناشئة",
+                gear_4_sub: "يونا إنتربرايز",
+                gear_4_desc: "مختبر الروبوتات المنزلي في أنقرة لإدارة مشاريع يونا تك عن بعد.",
+                timeline_title: "الخط الزمني لمسيرة يونا تك",
+                t_1_year: "2026 - الصف الخامس",
+                t_1_title: "تأسيس يونا تك وبايثون المتقدمة",
+                t_1_desc: "إطلاق شركة يونا تك رسمياً كعبقري عمره 11 عاماً، وبناء تطبيقات بايثون وروبوتات مستقلة.",
+                t_2_year: "2025 - الصف الرابع",
+                t_2_title: "أول روبوت أردوينو وجائزة معرض العلوم",
+                t_2_desc: "برمجة روبوت لتفادي العوائق باستخدام أردوينو C++ والفوز بتقدير معرض العلوم المدرسي.",
+                t_3_year: "2023 - 2024",
+                t_3_title: "إتقان سكراتش والمنطق المبكر",
+                t_3_desc: "بدء تعلم المنطق الحاسوبي والبرمجة الكتلية ومبادئ تطوير الويب في سن التاسعة.",
+                terminal_section_title: "طرفية يونا تك والتواصل الآمن",
+                contact_title: "راسل يونا تك",
+                contact_desc: "أرسل رسالة مباشرة إلى المؤسس كآن (الصف الخامس).",
+                form_name: "اسم_المرسل:",
+                form_email: "بريد_المرسل:",
+                form_msg: "نص_الرسالة:",
+                form_submit: "إرسال الرسالة",
+                form_success: "نجح الإرسال // تم الاستلام بواسطة يونا تك",
+                modal_close: "إغلاق النافذة",
+                footer_rights: "© 2026 شركة يونا تك. تأسست بواسطة كآن (11 عاماً). جميع الأنظمة تعمل بكفاءة.",
+                footer_top: "العودة للأعلى",
+                footer_cli: "طرفية الأوامر"
+            }
+        };
+
+        // Language Switcher Logic
+        const langSwitcher = document.getElementById('lang-switcher');
+        function setLanguage(lang) {
+            const t = translations[lang] || translations.en;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) {
+                    el.textContent = t[key];
+                }
+            });
+            const htmlTag = document.documentElement;
+            if (lang === 'ar') {
+                htmlTag.setAttribute('dir', 'rtl');
+                htmlTag.setAttribute('lang', 'ar');
+            } else {
+                htmlTag.setAttribute('dir', 'ltr');
+                htmlTag.setAttribute('lang', lang);
+            }
+            langSwitcher.value = lang;
+            localStorage.setItem('yuna_lang', lang);
+        }
+
+        langSwitcher.addEventListener('change', (e) => {
+            setLanguage(e.target.value);
+        });
+
+        // Load saved language or default to en
+        const savedLang = localStorage.getItem('yuna_lang') || 'en';
+        setLanguage(savedLang);
+
+        // Lucide Icons initialization
+        lucide.createIcons();
+
+        // Background Particle Canvas
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const particles = Array.from({ length: 60 }, () => ({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.8,
+            vy: (Math.random() - 0.5) * 0.8,
+            radius: Math.random() * 2 + 1
+        }));
+
+        function drawBackground() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = 'rgba(6, 182, 212, 0.5)';
+            ctx.strokeStyle = 'rgba(30, 41, 59, 0.4)';
+
+            particles.forEach((p, index) => {
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0) p.x = width;
+                if (p.x > width) p.x = 0;
+                if (p.y < 0) p.y = height;
+                if (p.y > height) p.y = 0;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                for (let j = index + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(drawBackground);
+        }
+        drawBackground();
+
+        // Terminal Typing Effect
+        const typingTextElement = document.getElementById('typing-terminal');
+        const phrases = [
+            "yunatech --init robotics_rover.py",
+            "git commit -m 'feat: 5th grade science robotics update'",
+            "python3 -m yunatech.ai_assistant --status online",
+            "echo 'Welcome to YUNA Tech - Founded by Kaan (Age 11)'"
+        ];
+        let phraseIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+
+        function typeTerminal() {
+            const currentPhrase = phrases[phraseIdx];
+            if (isDeleting) {
+                typingTextElement.textContent = "> " + currentPhrase.substring(0, charIdx - 1);
+                charIdx--;
+                if (charIdx === 0) {
+                    isDeleting = false;
+                    phraseIdx = (phraseIdx + 1) % phrases.length;
+                    setTimeout(typeTerminal, 500);
+                    return;
+                }
+            } else {
+                typingTextElement.textContent = "> " + currentPhrase.substring(0, charIdx + 1);
+                charIdx++;
+                if (charIdx === currentPhrase.length) {
+                    isDeleting = true;
+                    setTimeout(typeTerminal, 2000);
+                    return;
+                }
+            }
+            setTimeout(typeTerminal, isDeleting ? 40 : 80);
+        }
+        typeTerminal();
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Projects Filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-cyber-cyan', 'text-gray-950', 'font-bold', 'shadow-neon-cyan');
+                    b.classList.add('glass-panel', 'border', 'border-cyber-border', 'text-gray-300');
+                });
+                btn.classList.remove('glass-panel', 'border', 'border-cyber-border', 'text-gray-300');
+                btn.classList.add('bg-cyber-cyan', 'text-gray-950', 'font-bold', 'shadow-neon-cyan');
+
+                const filter = btn.getAttribute('data-filter');
+                projectCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Project Modal
+        function openModal(title, desc, img) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-desc').textContent = desc;
+            document.getElementById('modal-img').src = img;
+            document.getElementById('project-modal').classList.remove('hidden');
+            document.getElementById('project-modal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('project-modal').classList.remove('flex');
+            document.getElementById('project-modal').classList.add('hidden');
+        }
+
+        // Robotics Lab / Live Simulator Widget
+        const robotCanvas = document.getElementById('robot-canvas');
+        const rCtx = robotCanvas.getContext('2d');
+        const t1Slider = document.getElementById('theta1-slider');
+        const t2Slider = document.getElementById('theta2-slider');
+        const t3Slider = document.getElementById('theta3-slider');
+        const t1Label = document.getElementById('theta1-label');
+        const t2Label = document.getElementById('theta2-label');
+        const t3Label = document.getElementById('theta3-label');
+        const eeX = document.getElementById('ee-x');
+        const eeY = document.getElementById('ee-y');
+
+        let isRunning = true;
+        document.getElementById('sim-toggle').addEventListener('click', () => {
+            isRunning = !isRunning;
+            document.getElementById('sim-toggle').textContent = isRunning ? "Pause / Run" : "Resume Sim";
+        });
+        document.getElementById('sim-reset').addEventListener('click', () => {
+            t1Slider.value = 45;
+            t2Slider.value = 60;
+            t3Slider.value = 30;
+        });
+
+        function drawRobotArm() {
+            rCtx.clearRect(0, 0, robotCanvas.width, robotCanvas.height);
+            
+            // Draw grid
+            rCtx.strokeStyle = 'rgba(30, 41, 59, 0.5)';
+            rCtx.lineWidth = 1;
+            for(let x=0; x<robotCanvas.width; x+=40) {
+                rCtx.beginPath(); rCtx.moveTo(x,0); rCtx.lineTo(x, robotCanvas.height); rCtx.stroke();
+            }
+            for(let y=0; y<robotCanvas.height; y+=40) {
+                rCtx.beginPath(); rCtx.moveTo(0,y); rCtx.lineTo(robotCanvas.width, y); rCtx.stroke();
+            }
+
+            const baseIdxX = robotCanvas.width / 2;
+            const baseIdxY = robotCanvas.height - 50;
+
+            const theta1 = (parseInt(t1Slider.value) * Math.PI) / 180;
+            const theta2 = (parseInt(t2Slider.value) * Math.PI) / 180;
+            const theta3 = (parseInt(t3Slider.value) * Math.PI) / 180;
+
+            t1Label.textContent = `Base Joint (θ1): ${t1Slider.value}°`;
+            t2Label.textContent = `Elbow Joint (θ2): ${t2Slider.value}°`;
+            t3Label.textContent = `Wrist Joint (θ3): ${t3Slider.value}°`;
+
+            const L1 = 100;
+            const L2 = 80;
+            const L3 = 60;
+
+            const x1 = baseIdxX + L1 * Math.cos(-theta1);
+            const y1 = baseIdxY + L1 * Math.sin(-theta1);
+
+            const x2 = x1 + L2 * Math.cos(-theta1 - theta2);
+            const y2 = y1 + L2 * Math.sin(-theta1 - theta2);
+
+            const x3 = x2 + L3 * Math.cos(-theta1 - theta2 - theta3);
+            const y3 = y2 + L3 * Math.sin(-theta1 - theta2 - theta3);
+
+            eeX.textContent = Math.round(x3 - baseIdxX);
+            eeY.textContent = Math.round(baseIdxY - y3);
+
+            // Draw base
+            rCtx.fillStyle = '#1e293b';
+            rCtx.fillRect(baseIdxX - 40, baseIdxY, 80, 20);
+            rCtx.fillStyle = '#06b6d4';
+            rCtx.beginPath(); rCtx.arc(baseIdxX, baseIdxY, 12, 0, Math.PI*2); rCtx.fill();
+
+            // Segment 1
+            rCtx.strokeStyle = '#06b6d4';
+            rCtx.lineWidth = 6;
+            rCtx.beginPath(); rCtx.moveTo(baseIdxX, baseIdxY); rCtx.lineTo(x1, y1); rCtx.stroke();
+
+            // Joint 1
+            rCtx.fillStyle = '#a855f7';
+            rCtx.beginPath(); rCtx.arc(x1, y1, 8, 0, Math.PI*2); rCtx.fill();
+
+            // Segment 2
+            rCtx.strokeStyle = '#a855f7';
+            rCtx.lineWidth = 5;
+            rCtx.beginPath(); rCtx.moveTo(x1, y1); rCtx.lineTo(x2, y2); rCtx.stroke();
+
+            // Joint 2
+            rCtx.fillStyle = '#10b981';
+            rCtx.beginPath(); rCtx.arc(x2, y2, 6, 0, Math.PI*2); rCtx.fill();
+
+            // Segment 3
+            rCtx.strokeStyle = '#10b981';
+            rCtx.lineWidth = 4;
+            rCtx.beginPath(); rCtx.moveTo(x2, y2); rCtx.lineTo(x3, y3); rCtx.stroke();
+
+            // End Effector Target
+            rCtx.fillStyle = '#38bdf8';
+            rCtx.beginPath(); rCtx.arc(x3, y3, 8, 0, Math.PI*2); rCtx.fill();
+            rCtx.strokeStyle = 'rgba(6, 182, 212, 0.6)';
+            rCtx.lineWidth = 2;
+            rCtx.beginPath(); rCtx.arc(x3, y3, 16, 0, Math.PI*2); rCtx.stroke();
+
+            requestAnimationFrame(drawRobotArm);
+        }
+        drawRobotArm();
+
+        // Terminal CLI Interactive Logic
+        const terminalOutput = document.getElementById('terminal-output');
+        const terminalInput = document.getElementById('terminal-input');
+
+        terminalInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const cmd = terminalInput.value.trim().toLowerCase();
+                terminalInput.value = '';
+
+                const userP = document.createElement('p');
+                userP.innerHTML = `<span class="text-cyber-cyan">yuna@cli:~$</span> ${cmd}`;
+                terminalOutput.appendChild(userP);
+
+                const responseP = document.createElement('p');
+                responseP.className = "text-gray-300";
+
+                if (cmd === 'help') {
+                    responseP.innerHTML = "Available commands:<br>- <span class='text-cyber-cyan'>about</span>: View YUNA Tech founder bio<br>- <span class='text-cyber-cyan'>company</span>: View YUNA Tech details<br>- <span class='text-cyber-cyan'>contact</span>: Get contact info<br>- <span class='text-cyber-cyan'>clear</span>: Clear terminal window";
+                } else if (cmd === 'about') {
+                    responseP.textContent = "Kaan Demir: 11-year-old 5th-grade prodigy and founder of YUNA Tech.";
+                } else if (cmd === 'company') {
+                    responseP.textContent = "YUNA Tech Inc. - Specializing in elementary robotics, Python software, and AI tools for students.";
+                } else if (cmd === 'contact') {
+                    responseP.textContent = "Secure Email: contact@yunatech.dev // HQ: Ankara, Turkey";
+                } else if (cmd === 'clear') {
+                    terminalOutput.innerHTML = '';
+                    return;
+                } else if (cmd === '') {
+                    return;
+                } else {
+                    responseP.innerHTML = `command not found: ${cmd}. Type <span class='text-cyber-yellow'>help</span> for commands.`;
+                    responseP.className = "text-red-400";
+                }
+
+                terminalOutput.appendChild(responseP);
+                terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            }
+        });
+
+        // Contact Form Submission
+        const contactForm = document.getElementById('contact-form');
+        const contactSuccess = document.getElementById('contact-success');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            contactForm.reset();
+            contactSuccess.classList.remove('hidden');
+            setTimeout(() => {
+                contactSuccess.classList.add('hidden');
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
